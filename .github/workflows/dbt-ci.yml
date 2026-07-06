@@ -52,8 +52,8 @@ jobs:
           git checkout main
           dbt deps
           dbt parse --target prod
-          mkdir -p /tmp/dbt-state
-          cp target/manifest.json /tmp/dbt-state/manifest.json
+          mkdir -p state
+          cp target/manifest.json state/manifest.json
           git checkout -
 
       # ---- Clone incrementals first (so is_incremental() is true) ----
@@ -61,7 +61,7 @@ jobs:
         run: |
           dbt clone \
             --target ci \
-            --state /tmp/dbt-state \
+            --state ./state \
             --defer \
             --select "state:modified+,config.materialized:incremental,state:old"
 
