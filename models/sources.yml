@@ -8,3 +8,7 @@ sources:
       - name: contracts
       - name: token_transfers
       - name: transactions
+        columns:
+          - name: hash
+            data_tests:
+              - unique
