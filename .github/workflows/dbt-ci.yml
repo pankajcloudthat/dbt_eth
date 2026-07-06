@@ -61,7 +61,7 @@ jobs:
         run: |
           dbt clone \
             --target ci \
-            --state /tmp/dbt-state \
+            --state ./state \
             --defer \
             --select "state:modified+,config.materialized:incremental,state:old"
 
