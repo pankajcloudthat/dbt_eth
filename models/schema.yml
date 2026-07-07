@@ -21,12 +21,21 @@ models:
     description: "{{ doc('transactions') }}"
     columns:
       - name: hash
+        tags: ["keys"]
         description: >
           This is a very long multiline description about the unique
           identifier of each transaction in the Ethereum blockchain
         data_tests:
           - unique
           - not_null
+          - relationships:
+              to: ref('stg_token_transfers')
+              field: transaction_hash
+              severity: warn
+              config:
+                store_failures: true
+                store_failures_as: table
+                where: date > current_date - 25
   
   - name: stablecoin_activity_per_day
     latest_version: 1
@@ -92,3 +101,16 @@ unit_tests:
     expect:
       rows:
         - {transaction_category: 'contract_creation'}
+
+
+exposures:
+
+  - name: eth_activity_per_day
+    type: dashboard
+
+    depends_on:
+      - ref('stg_transactions_enriched')
+
+    owner:
+      name: Pankaj
+      email: pankajc@cloudthat.com
