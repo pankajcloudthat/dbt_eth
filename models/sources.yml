@@ -5,14 +5,18 @@ sources:
     description: here is my ETH source
     database: eth
     schema: eth_schema
-    freshness: 
-      warn_after: {count: 12, period: hour}
-      error_after: {count: 40, period: day}
-    loaded_at_field: to_timestamp(date)
     tables:
       - name: contracts
         description: this is my contracts table
+        freshness: 
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 40, period: day}
+        loaded_at_field: to_timestamp(date)
       - name: token_transfers
+        freshness: 
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 40, period: day}
+        loaded_at_field: to_timestamp(date)
       - name: transactions
         columns:
           - name: hash
