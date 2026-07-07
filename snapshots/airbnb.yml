@@ -1,0 +1,12 @@
+snapshots:
+  - name: airbnb_snap
+    relation: source('airbnb', 'apartment_listings')
+    config:
+      # schema: snap
+      # strategy: timestamp
+      strategy: check
+      unique_key: listing_id
+      updated_at: updated_at
+      # dbt_valid_to_current: "to_date('1970-01-01')"
+      # hard_deletes: "new_record"
+      check_cols: 'all'
